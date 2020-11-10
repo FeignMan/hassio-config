@@ -1,0 +1,17 @@
+- platform: webostv
+  host: 192.168.1.44
+  name: Living Room TV
+  timeout: 10
+  filename: webostv.conf
+  turn_on_action:
+    service: wake_on_lan.send_magic_packet
+    data:
+      mac: B4:E6:2A:87:A8:52
+  customize:
+    sources:
+      - youtube
+      - netflix
+      - spotify
+      - 'Amazon Prime Video'
+      - hdmi1
+      - 'Freebox Server'

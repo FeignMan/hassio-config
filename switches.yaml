@@ -1,0 +1,61 @@
+# https://www.home-assistant.io/components/switch.mqtt/
+- platform: mqtt
+  name: "Kitchen Light"
+  state_topic: "stat/sonoff/POWER"
+  command_topic: "cmnd/sonoff/POWER"
+  payload_on: "ON"
+  payload_off: "OFF"
+  state_on: "ON"
+  state_off: "OFF"
+  optimistic: false
+  qos: 1
+  retain: true
+- platform: mqtt
+  name: "Living Room Spotlight"
+  state_topic: "stat/livingroom-light-spot/POWER"
+  command_topic: "cmnd/livingroom-light-spot/POWER"
+  payload_on: "ON"
+  payload_off: "OFF"
+  state_on: "ON"
+  state_off: "OFF"
+  optimistic: false
+  qos: 1
+  retain: true
+- platform: mqtt
+  name: "Living Room Main"
+  state_topic: "stat/livingroom-light-main/POWER"
+  command_topic: "cmnd/livingroom-light-main/POWER"
+  payload_on: "ON"
+  payload_off: "OFF"
+  state_on: "ON"
+  state_off: "OFF"
+  optimistic: false
+  qos: 1
+  retain: true
+- platform: mqtt
+  name: "Ishan's Desk Light"
+  state_topic: "stat/guestroom-light-desk/POWER"
+  command_topic: "cmnd/guestroom-light-desk/POWER"
+  payload_on: "ON"
+  payload_off: "OFF"
+  state_on: "ON"
+  state_off: "OFF"
+  optimistic: false
+  qos: 1
+  retain: true
+- platform: mqtt
+  name: "Hallway Shelf Light"
+  state_topic: "stat/hallway-light-shelf/POWER"
+  command_topic: "cmnd/hallway-light-shelf/POWER"
+  payload_on: "ON"
+  payload_off: "OFF"
+  state_on: "ON"
+  state_off: "OFF"
+  optimistic: false
+  qos: 1
+  retain: true
+- platform: deluge
+  host: 192.168.1.67
+  port: 58846
+  username: !secret deluge_user
+  password: !secret deluge_pwd

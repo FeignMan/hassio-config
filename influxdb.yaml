@@ -1,0 +1,17 @@
+host: 192.168.1.67
+port: 8086
+username: !secret influxdb_user
+password: !secret influxdb_pwd
+database: home_assistant
+max_retries: 3
+include:
+  entities:
+    - sensor.deluge_up_speed
+    - sensor.deluge_down_speed
+    - sensor.freebox_download_speed
+    - sensor.freebox_upload_speed
+tags:
+  source: homeassistant
+component_config_glob:
+  sensor.freebox*:
+    override_measurement: kB/s

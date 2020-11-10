@@ -1,0 +1,24 @@
+switch.freebox_wifi:
+  hidden: true
+device_tracker.ishan_s_phone:
+  hidden: true
+device_tracker.lgwebostv:
+  hidden: true
+device_tracker.wn3100rpv2:
+  hidden: true
+device_tracker.raspberrypi:
+  hidden: true
+device_tracker.sonoff_6676:
+  hidden: true
+device_tracker.aurelia_s_phone:
+  hidden: true
+person.ishan_aditya:
+  icon: mdi:human-male
+person.aurelia:
+  icon: mdi:human-female
+device_tracker.mrc_lap_085045:
+  hidden: true
+device_tracker.oneplus5:
+  hidden: true
+device_tracker.aurelias_air:
+  hidden: true
