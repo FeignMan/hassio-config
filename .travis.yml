@@ -4,7 +4,9 @@ python:
 before_install:
 - mv travis-secrets.yaml secrets.yaml
 - mv travis-gcp_service_account.json gcp_service_account.json
-- pwd
+- sudo mkdir /config
+- sudo mkdir -p /ssl/ && sudo touch /ssl/fullchain.pem
+- sudo mkdir -p /ssl/ && sudo touch /ssl/fullchain.pem
 - sudo apt-get install -y libudev-dev
 install:
 - pip3 install homeassistant
