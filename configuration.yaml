@@ -6,7 +6,7 @@ homeassistant:
   unit_system: metric
   time_zone: Europe/Paris
   customize: !include customize.yaml
-  whitelist_external_dirs:
+  allowlist_external_dirs:
     - /config
 
 # Configure a default setup of Home Assistant (frontend, api, etc)
@@ -37,7 +37,7 @@ switch: !include switches.yaml
 sensor: !include sensors.yaml
 
 http:
-  base_url: feignman-home.duckdns.org
+# base_url: feignman-home.duckdns.org
   ssl_certificate: /ssl/fullchain.pem
   ssl_key: /ssl/privkey.pem
   ip_ban_enabled: True
