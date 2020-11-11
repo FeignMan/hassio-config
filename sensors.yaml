@@ -12,4 +12,4 @@
     - 'upload_speed'
 - platform: filesize
   file_paths:
-    - /config/home-assistant_v2.db
+    - home-assistant_v2.db
