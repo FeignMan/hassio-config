@@ -37,9 +37,9 @@ switch: !include switches.yaml
 sensor: !include sensors.yaml
 
 http:
-# base_url: feignman-home.duckdns.org
-  ssl_certificate: /ssl/fullchain.pem
-  ssl_key: /ssl/privkey.pem
+# https://community.home-assistant.io/t/trusted-networks-when-using-nginx-reverse-proxy/37836
+  use_x_forwarded_for: true
+  trusted_proxies: 192.168.1.67     # traefik machine IP
   ip_ban_enabled: True
   login_attempts_threshold: 3
 

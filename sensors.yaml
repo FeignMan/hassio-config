@@ -1,6 +1,5 @@
-#- platform: cert_expiry
-#  host: hassio.feignman.duckdns.org
-#  port: 8123
+- platform: cert_expiry
+  host: hassio.feignman.duckdns.org
 - platform: deluge
   host: 192.168.1.67
   port: 58846
