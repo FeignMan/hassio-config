@@ -1,5 +1,7 @@
-- platform: cert_expiry
-  host: hassio.feignman.duckdns.org
+# cert expiry doesn't work with SSL termination on reverse proxy (hassio.feignman.duckdns.org)
+#- platform: cert_expiry
+#  host: feignman-home.duckdns.org
+#  port: 8123
 - platform: deluge
   host: 192.168.1.67
   port: 58846
