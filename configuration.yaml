@@ -79,6 +79,23 @@ google_assistant:
 #      expose: false
 #      room: LIVING_ROOM
 
+homekit:
+  auto_start: true
+  filter:
+    include_domains:
+      - switch
+      - light
+      - sensor
+      - media_player
+    exclude_entity_globs:
+      - sensor.freebox_temperature*
+      - sensor.gm1911*
+      - sensor.oneplus*
+    exclude_entities:
+      - switch.deluge_switch
+      - switch.freebox_wifi
+      - media_player.bathroom_speakers
+
 # Text to speech
 tts:
   - platform: google_translate
