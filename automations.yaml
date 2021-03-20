@@ -2,22 +2,59 @@
   trigger:
     platform: state
     entity_id: device_tracker.homeworkstation
-    from: 'not_home'
-    to: 'home'
+    from: not_home
+    to: home
   condition:
-    - condition: state
-      entity_id: sun.sun
-      state: 'below_horizon'
+  - condition: state
+    entity_id: sun.sun
+    state: below_horizon
   action:
     service: switch.turn_on
     entity_id: switch.ishan_s_desk_light
-    
+  id: 0346d38fd32f4010bf6d4c9e92a56598
 - alias: PC Desk Light Trigger OFF
   trigger:
     platform: state
     entity_id: device_tracker.homeworkstation
-    from: 'home'
-    to: 'not_home'
+    from: home
+    to: not_home
   action:
     service: switch.turn_off
     entity_id: switch.ishan_s_desk_light
+  id: 8b2361df90a249b79d37a6c3a7485b9e
+- id: '1615942832248'
+  alias: Basic Notification
+  description: Notification test
+  trigger:
+  - platform: state
+    entity_id: person.ishan
+    to: home
+  condition: []
+  action:
+  - service: notify.mobile_app_oneplus_a5000
+    data:
+      title: Hey
+      message: You're home!
+  mode: single
+- id: '1616205706096'
+  alias: Button Livingroom Spotlight
+  description: Sonoff zigbee button automation for controlling the Licing Room Spotlight
+  use_blueprint:
+    path: sonoff_zigbee_button.yaml
+    input:
+      sonoff_button: 0c1650775cfd16aae9edc5fe05ed5bad
+      toggle_action:
+      - service: light.toggle
+        data:
+          transition: 5
+          brightness_pct: 100
+        target:
+          device_id: 53a0016bf728ed5cceabbe9d8b26ad70
+      on_action:
+      - service: switch.toggle
+        target:
+          entity_id: switch.living_room_spotlight
+      off_action:
+      - service: scene.turn_on
+        target:
+          entity_id: scene.low_light_living_room
