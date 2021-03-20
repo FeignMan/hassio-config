@@ -12,6 +12,9 @@ homeassistant:
 # Configure a default setup of Home Assistant (frontend, api, etc)
 default_config:
 
+zha:
+  database_path: /config/zigbee.db
+
 webostv:
   host: 192.168.1.44
   name: Living Room TV
