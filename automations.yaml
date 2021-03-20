@@ -58,3 +58,47 @@
       - service: scene.turn_on
         target:
           entity_id: scene.low_light_living_room
+- id: '1616268705098'
+  alias: Motion Activated Kitchen Light (deprecated)
+  description: Motion Activated Kitchen Light (use the blueprint instead)
+  trigger:
+  - type: occupied
+    platform: device
+    device_id: 86468a3ce7373daadce61e7afd5a295f
+    entity_id: binary_sensor.motion_kitchen_occupancy
+    domain: binary_sensor
+  condition:
+  - condition: sun
+    after: sunset
+    after_offset: -00:45:00
+  action:
+  - service: switch.turn_on
+    target:
+      entity_id: switch.kitchen_light
+  - wait_for_trigger:
+    - type: not_occupied
+      platform: device
+      device_id: 86468a3ce7373daadce61e7afd5a295f
+      entity_id: binary_sensor.motion_kitchen_occupancy
+      domain: binary_sensor
+    - device_id: 86468a3ce7373daadce61e7afd5a295f
+      domain: zha
+      platform: device
+      type: device_offline
+      subtype: device_offline
+    continue_on_timeout: true
+  - service: switch.turn_off
+    target:
+      entity_id: switch.kitchen_light
+  mode: single
+- id: '1616275227538'
+  alias: Kitchen Light
+  description: Motion-activated Kitchen Light
+  use_blueprint:
+    path: motion_activated_switch.yaml
+    input:
+      motion_entity: binary_sensor.motion_kitchen_ias_zone
+      switch_target:
+        entity_id: switch.kitchen_light
+      below_elevation: 5
+      no_motion_wait: 0
