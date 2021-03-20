@@ -1,0 +1,11 @@
+- id: '1616205954287'
+  name: Low Light Living Room
+  entities:
+    light.main_living_room_light:
+      brightness: 51
+      friendly_name: Living Room Floorlamp
+      supported_features: 33
+      state: 'on'
+    switch.living_room_spotlight:
+      friendly_name: Living Room Spotlight
+      state: 'off'
