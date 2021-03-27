@@ -48,6 +48,8 @@ http:
 
 # https://www.home-assistant.io/integrations/recorder/
 recorder:
+  db_url: mysql://homeassistant:homeassistant@192.168.1.67/homeassistant?charset=utf8mb4
+  auto_purge: true
   purge_keep_days: 7
   commit_interval: 10
   exclude:
@@ -55,15 +57,15 @@ recorder:
       - automation
       - updater
       - media_player
-      - sensor
-      - device_tracker
+      # - sensor
+      # - device_tracker
     entities:
       - sun.sun
-  include:
-    entities:
-      - sensor.home_assistant_v2_db
-      - sensor.freebox_temperature_cpu_cp_master
-      - sensor.freebox_temperature_cpu_cp_slave
+  # include:
+  #   entities:
+  #     - sensor.home_assistant_v2_db
+  #     - sensor.freebox_temperature_cpu_cp_master
+  #     - sensor.freebox_temperature_cpu_cp_slave
 
 influxdb: !include influxdb.yaml
 
@@ -90,6 +92,8 @@ homekit:
       - light
       - sensor
       - media_player
+    include_entity_globs:
+      - binary_sensor.*_ias_zone
     exclude_entity_globs:
       - sensor.freebox_temperature*
       - sensor.gm1911*
