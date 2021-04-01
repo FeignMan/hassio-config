@@ -98,8 +98,8 @@
   use_blueprint:
     path: motion_activated_switch.yaml
     input:
-      motion_entity: binary_sensor.motion_kitchen_2_ias_zone
+      motion_entity: binary_sensor.motion_kitchen_ias_zone
       switch_target:
         entity_id: switch.kitchen_light
       below_elevation: 5
-      no_motion_wait: 180
+      no_motion_wait: 300
