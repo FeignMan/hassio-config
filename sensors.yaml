@@ -11,3 +11,114 @@
     - 'current_status'
     - 'download_speed'
     - 'upload_speed'
+- platform: template
+  sensors:
+    washer_state:
+      friendly_name: 'Washer State'
+      value_template: >-
+        {% if (states.sensor.washer_dryer.attributes.run_state) == "Lavage" %}
+          {{ states.sensor.washer_dryer.attributes.run_state + ": " + states.sensor.washer_dryer.attributes.current_course + " [" + states.sensor.washer_dryer.attributes.water_temp + "]" }}
+        {% else %}
+          {{ states.sensor.washer_dryer.attributes.run_state }}
+        {% endif %}
+      icon_template: mdi:washing-machine
+    washer_program_length:
+      friendly_name: 'Washer Program Length'
+      value_template: >-
+        {% set washerprogramminutes = (states.sensor.washer_dryer.attributes.initial_time.split(':')[0] |int * 60) + (states.sensor.washer_dryer.attributes.initial_time.split(':')[1] | int) %}
+        {{ washerprogramminutes }}
+      icon_template: mdi:washing-machine
+    washer_remaining_time:
+      friendly_name: 'Washer Remaining Time'
+      value_template: >-
+        {% set washerremainminutes = (states.sensor.washer_dryer.attributes.remain_time.split(':')[0]|int * 60) + (states.sensor.washer_dryer.attributes.remain_time.split(':')[1] | int) %}
+        {% if ((states.sensor.washer_dryer.attributes.run_state) == "Lavage") %}
+          {{ washerremainminutes }}
+        {% else %}
+          {% if ((states.sensor.washer_dryer.attributes.run_state) == "Rinçage") %}
+            {{ washerremainminutes }}
+          {% else %}
+            0
+          {% endif %}
+        {% endif %}
+      icon_template: mdi:washing-machine
+    washer_progress:
+      friendly_name: 'Washer Progress'
+      value_template: >-
+        {% set washerprogress = (100 - (((states.sensor.washer_remaining_time.state | int) / (states.sensor.washer_program_length.state | int)) * 100)) %}
+        {% if (states.sensor.washer_program_length.state | int) < 1 %}
+          0
+        {% else %}
+          {% if ((states.sensor.washer_dryer.attributes.run_state) == "Lavage") %}
+            {{ washerprogress }}
+          {% else %}
+            {% if ((states.sensor.washer_dryer.attributes.run_state) == "Rinçage") %}
+              {{ washerprogress }}
+            {% else %}
+              0
+            {% endif %}
+          {% endif %}
+        {% endif %}
+      icon_template: mdi:washing-machine
+    washspinner_state:
+      friendly_name: 'Spinner Program'
+      value_template: >-
+        {% if (states.sensor.washer_dryer.run_state ) == "Essorage" %}
+          {{ 'Spinning: ' + states.sensor.washer_dryer.attributes.spin_speed }}
+        {% else %}
+          {{ states.sensor.washer_dryer.spin_speed }}
+        {% endif%}
+      icon_template: mdi:washing-machine
+    washspinner_remaining_time:
+      friendly_name: 'Spinner Remaining Time'
+      value_template: >-
+        {% set spinnerremainminutes = (states.sensor.washer_dryer.attributes.remain_time.split(':')[0]|int * 60) + (states.sensor.washer_dryer.attributes.remain_time.split(':')[1] | int) %}
+        {% if ((states.sensor.washer_dryer.attributes.run_state) == "Essorage") %}
+          {{ spinnerremainminutes }}
+        {% else %}
+          0
+        {% endif %}
+      icon_template: mdi:washing-machine
+    washspinner_progress:
+      friendly_name: 'Spinner Progress'
+      value_template: >-
+        {% set spinnerprogress = (100 - (((states.sensor.washspinner_remaining_time.state | int) / (states.sensor.washer_program_length.state | int)) * 100)) %}
+        {% if (states.sensor.washer_program_length.state | int) < 1 %}
+          0
+        {% else %}
+          {% if ((states.sensor.washer_dryer.attributes.run_state) == "Essorage") %}
+            {{ spinnerprogress }}
+          {% else %}
+            0
+          {% endif %}
+        {% endif %}
+      icon_template: mdi:washing-machine
+    dryer_state:
+      friendly_name: 'Dryer Program'
+      value_template: >-
+        {{ states.sensor.washer_dryer.attributes.dry_level }}
+      icon_template: mdi:washing-machine
+    dryer_remaining_time:
+      friendly_name: 'Dryer Remaining Time'
+      value_template: >-
+        {% set dryerremainminutes = (states.sensor.washer_dryer.attributes.remain_time.split(':')[0]|int * 60) + (states.sensor.washer_dryer.attributes.remain_time.split(':')[1] | int) %}
+        {% if ((states.sensor.washer_dryer.attributes.run_state) == "Séchage") %}
+          {{ dryerremainminutes }}
+        {% else %}
+          0
+        {% endif %}
+      icon_template: mdi:washing-machine
+    dryer_progress:
+      friendly_name: 'Dryer Progress'
+      value_template: >-
+        {% set dryerprogress = (100 - (((states.sensor.dryer_remaining_time.state | int) / (states.sensor.washer_program_length.state | int)) * 100)) %}
+        {% if (states.sensor.washer_program_length.state | int) < 1 %}
+          0
+        {% else %}
+          {% if ((states.sensor.washer_dryer.attributes.run_state) == "Séchage") %}
+            {{ dryerprogress }}
+          {% else %}
+            0
+          {% endif %}
+        {% endif %}
+      icon_template: mdi:washing-machine
