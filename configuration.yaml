@@ -26,15 +26,22 @@ webostv:
       mac: B4:E6:2A:87:A8:52
   customize:
     sources:
-      - youtube
-      - netflix
-      - spotify
-      - 'Amazon Prime Video'
-      - hdmi1
+      - Amazon Prime Video
+      - HDMI1
+      - HDMI2
+      - Netflix
+      - Spotify - Music and Podcasts
+      - YouTube
       - 'Freebox Server'
 
+notify:
+  - platform: webostv
+    host: 192.168.1.44
+    name: living_room_tv
+    filename: webostv.conf
+
 wake_on_lan:
-media_player: !include media_players.yaml
+media_player: #!include media_players.yaml
 
 # https://www.home-assistant.io/docs/configuration/splitting_configuration/
 switch: !include switches.yaml
