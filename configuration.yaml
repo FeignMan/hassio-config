@@ -43,6 +43,15 @@ notify:
 wake_on_lan:
 media_player: #!include media_players.yaml
 
+# Example configuration.yaml entry
+spotify:
+  client_id: !secret spotify_clientid
+  client_secret: !secret spotify_clientsecret
+
+spotcast:
+  sp_dc: !secret spotify_sp_dc
+  sp_key: !secret spotify_sp_key
+
 # https://www.home-assistant.io/docs/configuration/splitting_configuration/
 switch: !include switches.yaml
     

@@ -11,6 +11,7 @@
     - 'current_status'
     - 'download_speed'
     - 'upload_speed'
+- platform: spotcast
 - platform: template
   sensors:
     washer_state:
