@@ -46,10 +46,10 @@
     washer_progress:
       friendly_name: 'Washer Progress'
       value_template: >-
+        {% set washerprogress = (100 - (((states.sensor.washer_remaining_time.state | int) / (states.sensor.washer_program_length.state | int)) * 100)) %}
         {% if (states.sensor.washer_program_length.state | int) < 1 %}
           0
         {% else %}
-          {% set washerprogress = (100 - (((states.sensor.washer_remaining_time.state | int) / (states.sensor.washer_program_length.state | int)) * 100)) %}
           {% if ((states.sensor.washer_dryer.attributes.run_state) == "Lavage") %}
             {{ washerprogress }}
           {% else %}
@@ -83,10 +83,10 @@
     washspinner_progress:
       friendly_name: 'Spinner Progress'
       value_template: >-
+        {% set spinnerprogress = (100 - (((states.sensor.washspinner_remaining_time.state | int) / (states.sensor.washer_program_length.state | int)) * 100)) %}
         {% if (states.sensor.washer_program_length.state | int) < 1 %}
           0
         {% else %}
-          {% set spinnerprogress = (100 - (((states.sensor.washspinner_remaining_time.state | int) / (states.sensor.washer_program_length.state | int)) * 100)) %}
           {% if ((states.sensor.washer_dryer.attributes.run_state) == "Essorage") %}
             {{ spinnerprogress }}
           {% else %}
@@ -112,10 +112,10 @@
     dryer_progress:
       friendly_name: 'Dryer Progress'
       value_template: >-
+        {% set dryerprogress = (100 - (((states.sensor.dryer_remaining_time.state | int) / (states.sensor.washer_program_length.state | int)) * 100)) %}
         {% if (states.sensor.washer_program_length.state | int) < 1 %}
           0
         {% else %}
-          {% set dryerprogress = (100 - (((states.sensor.dryer_remaining_time.state | int) / (states.sensor.washer_program_length.state | int)) * 100)) %}
           {% if ((states.sensor.washer_dryer.attributes.run_state) == "Séchage") %}
             {{ dryerprogress }}
           {% else %}
