@@ -31,10 +31,10 @@
     to: home
   condition: []
   action:
-  - service: notify.mobile_app_oneplus_a5000
+  - service: notify.mobile_app_iphone
     data:
-      title: Hey
-      message: You're home!
+      title: Welcome Home!
+      message: Friendly message from your Home Assistant
   mode: single
 - id: '1616205706096'
   alias: Button Livingroom Spotlight
@@ -58,7 +58,7 @@
       off_action:
       - service: scene.turn_on
         target:
-          entity_id: scene.low_light_living_room
+          entity_id: scene.lights_off
 - id: '1616268705098'
   alias: Motion Activated Kitchen Light (deprecated)
   description: Motion Activated Kitchen Light (use the blueprint instead)
@@ -103,3 +103,25 @@
         entity_id: switch.kitchen_light
       below_elevation: 5
       no_motion_wait: 300
+- id: '1620860129873'
+  alias: Bedroom Motion Sensor
+  description: ''
+  use_blueprint:
+    path: motion_activated_switch.yaml
+    input:
+      switch_target:
+        device_id: 209fbbf5f1df440e9816a087bb722a47
+      motion_entity: binary_sensor.motion_bedroom_ias_zone
+- id: '1625700474272'
+  alias: Button Hallway Light
+  description: Sonoff Zigbee Button for Hallway Light
+  use_blueprint:
+    path: sonoff_zigbee_button.yaml
+    input:
+      sonoff_button: 2a6f68fca7c2d52287aaafb256bb5af0
+      toggle_action:
+      - service: light.toggle
+        target:
+          device_id: f89e5f7d50af4e82e02adf723671248f
+        data:
+          brightness_pct: 50
