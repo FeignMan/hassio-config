@@ -34,17 +34,6 @@
   qos: 1
   retain: true
 - platform: mqtt
-  name: "Living Room Spotlight"
-  state_topic: "stat/livingroom-light-spot/POWER"
-  command_topic: "cmnd/livingroom-light-spot/POWER"
-  payload_on: "ON"
-  payload_off: "OFF"
-  state_on: "ON"
-  state_off: "OFF"
-  optimistic: false
-  qos: 1
-  retain: true
-- platform: mqtt
   name: "Ishan's Desk Light"
   state_topic: "stat/guestroom-light-desk/POWER"
   command_topic: "cmnd/guestroom-light-desk/POWER"
