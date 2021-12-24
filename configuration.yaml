@@ -9,6 +9,11 @@ homeassistant:
   allowlist_external_dirs:
     - /config
 
+#logger:
+#  default: info
+#  logs:
+#    custom_components.myEnedis: debug
+
 # Configure a default setup of Home Assistant (frontend, api, etc)
 frontend:
   themes: !include_dir_merge_named themes
@@ -120,6 +125,7 @@ homekit:
       - switch.deluge_switch
       - switch.freebox_wifi
       - media_player.bathroom_speakers
+      - switch.kitchen_light
 
 # Text to speech
 tts:
