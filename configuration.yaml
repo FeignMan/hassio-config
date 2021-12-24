@@ -82,6 +82,9 @@ recorder:
       - media_player
       # - sensor
       # - device_tracker
+    entity_globs:
+      - sensor.iphone*
+      - sensor.oneplus*
     entities:
       - sun.sun
   # include:
@@ -93,19 +96,19 @@ recorder:
 influxdb: !include influxdb.yaml
 
 # Example configuration.yaml entry
-google_assistant:
-  project_id: home-assistant-b6745
-  service_account: !include gcp_service_account.json
-  report_state: true
-#  entity_config:
-#    switch.kitchen:
-#      name: CUSTOM_NAME_FOR_GOOGLE_ASSISTANT
-#      aliases:
-#        - BRIGHT_LIGHTS
-#        - ENTRY_LIGHTS
-#    light.living_room:
-#      expose: false
-#      room: LIVING_ROOM
+# google_assistant:
+#   project_id: home-assistant-b6745
+#   service_account: !include gcp_service_account.json
+#   report_state: true
+# #  entity_config:
+# #    switch.kitchen:
+# #      name: CUSTOM_NAME_FOR_GOOGLE_ASSISTANT
+# #      aliases:
+# #        - BRIGHT_LIGHTS
+# #        - ENTRY_LIGHTS
+# #    light.living_room:
+# #      expose: false
+# #      room: LIVING_ROOM
 
 homekit:
   auto_start: true
@@ -121,6 +124,7 @@ homekit:
       - sensor.freebox_temperature*
       - sensor.gm1911*
       - sensor.oneplus*
+      - sensor.iphone*
     exclude_entities:
       - switch.deluge_switch
       - switch.freebox_wifi
