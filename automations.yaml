@@ -23,14 +23,16 @@
       - service: light.toggle
         data:
           brightness_pct: 50
+          transition: 3
         target:
-          device_id: 53a0016bf728ed5cceabbe9d8b26ad70
+          device_id: 2d8b6c36efa8f2c0a8041ba80ea0248c
       on_action:
       - service: light.toggle
         data:
           brightness_pct: 50
+          transition: 3
         target:
-          device_id: 5f42190043df478db214df328a6d8c8b
+          device_id: 29c9deb2ac22847633172b53b98ff907
       off_action:
       - service: scene.turn_on
         target:
@@ -69,3 +71,13 @@
           device_id: f89e5f7d50af4e82e02adf723671248f
         data:
           brightness_pct: 50
+- id: '1648505989977'
+  alias: ' Study Motion Sensor'
+  description: Automation to control the lights in Ishan's study
+  use_blueprint:
+    path: motion_activated_light_or_switch.yaml
+    input:
+      motion_entity: binary_sensor.motion_sensor_study_ias_zone
+      no_motion_wait: 10
+      below_elevation: 7
+      target_entity: light.study_led_rgb

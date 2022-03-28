@@ -1,0 +1,84 @@
+blueprint:
+  name: Motion-activated Generic Device w/ Elevation
+  domain: automation
+  source_url: https://gist.github.com/freakshock88/2311759ba64f929f6affad4c0a67110b
+  input:
+    motion_entity:
+      name: Motion Sensor
+      selector:
+        entity:
+          domain: binary_sensor
+          device_class: motion
+    target_entity:
+      name: Target entity
+      description: The light, switch, scene to turn on (or script to run) when the automation is triggered.
+      selector:
+        entity:
+    no_motion_wait:
+      name: Turn off wait time
+      description: Time in minutes to leave the target entity on after last motion is detected. Set to -1 to disable.
+      default: 5
+      selector:
+        number:
+          min: -1
+          max: 60
+          unit_of_measurement: minutes
+          step: 1
+          mode: slider
+    below_elevation:
+      name: Below sun elevation
+      description: Solar elevation required to deactivate the automation. This motivation activated automation will be active if the sun is not above this elevation. 
+      default: 3
+      selector:
+        number:
+          min: -90.0
+          max: 90.0
+          unit_of_measurement: degrees
+          step: 1.0
+          mode: slider
+    target_off_entity:
+      name: (OPTIONAL) Turn-off entity
+      description: If defined, this entity will be turned off instead of the default target entity. This can be helpful when using target entities of type scene or script.
+      default:
+      selector:
+        entity:
+
+mode: restart
+max_exceeded: silent
+
+trigger:
+  platform: state
+  entity_id: !input 'motion_entity'
+  from: 'off'
+  to: 'on'
+
+variables:
+  below_elevation: !input 'below_elevation'
+  wait_time: !input 'no_motion_wait'
+  target_off_entity: !input 'target_off_entity'
+
+condition:
+  - '{{ state_attr(''sun.sun'',''elevation'') <= (below_elevation | float)}}'
+
+action:
+  - service: homeassistant.turn_on
+    entity_id: !input 'target_entity'
+  - condition: template
+    value_template: "{{ states[no_motion_wait].state > -1 }}"
+  - wait_for_trigger:
+      platform: state
+      entity_id: !input 'motion_entity'
+      from: 'on'
+      to: 'off'
+  - delay:
+      minutes: "{{ states[wait_time].state }}"
+  - choose:
+      - conditions:
+          - condition: template
+            value_template: "{{ (target_off_entity != none) }}"
+        sequence:
+          - service: homeassistant.turn_off
+            entity_id: !input target_off_entity
+    default:
+      - service: homeassistant.turn_off
+        entity_id: !input target_entity
