@@ -64,14 +64,14 @@ action:
   - service: homeassistant.turn_on
     entity_id: !input 'target_entity'
   - condition: template
-    value_template: "{{ states[no_motion_wait].state > -1 }}"
+    value_template: "{{ wait_time > -1 }}"
   - wait_for_trigger:
       platform: state
       entity_id: !input 'motion_entity'
       from: 'on'
       to: 'off'
   - delay:
-      minutes: "{{ states[wait_time].state }}"
+      minutes: "{{ wait_time }}"
   - choose:
       - conditions:
           - condition: template
@@ -80,5 +80,8 @@ action:
           - service: homeassistant.turn_off
             entity_id: !input target_off_entity
     default:
+      - service: system_log.write
+        data:
+          message: LED TURNED OFF!!! -------
       - service: homeassistant.turn_off
         entity_id: !input target_entity
