@@ -55,8 +55,3 @@
   optimistic: false
   qos: 1
   retain: true
-- platform: deluge
-  host: 192.168.1.67
-  port: 58846
-  username: !secret deluge_user
-  password: !secret deluge_pwd

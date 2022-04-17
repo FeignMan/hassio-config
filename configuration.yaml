@@ -22,29 +22,6 @@ default_config:
 zha:
   database_path: /config/zigbee.db
 
-webostv:
-  host: 192.168.1.44
-  name: Living Room TV
-  turn_on_action:
-    service: wake_on_lan.send_magic_packet
-    data:
-      mac: B4:E6:2A:87:A8:52
-  customize:
-    sources:
-      - Amazon Prime Video
-      - HDMI1
-      - HDMI2
-      - Netflix
-      - Spotify - Music and Podcasts
-      - YouTube
-      - 'Freebox Server'
-
-notify:
-  - platform: webostv
-    host: 192.168.1.44
-    name: living_room_tv
-    filename: webostv.conf
-
 wake_on_lan:
 media_player: #!include media_players.yaml
 
@@ -87,28 +64,8 @@ recorder:
       - sensor.oneplus*
     entities:
       - sun.sun
-  # include:
-  #   entities:
-  #     - sensor.home_assistant_v2_db
-  #     - sensor.freebox_temperature_cpu_cp_master
-  #     - sensor.freebox_temperature_cpu_cp_slave
 
 influxdb: !include influxdb.yaml
-
-# Example configuration.yaml entry
-# google_assistant:
-#   project_id: home-assistant-b6745
-#   service_account: !include gcp_service_account.json
-#   report_state: true
-# #  entity_config:
-# #    switch.kitchen:
-# #      name: CUSTOM_NAME_FOR_GOOGLE_ASSISTANT
-# #      aliases:
-# #        - BRIGHT_LIGHTS
-# #        - ENTRY_LIGHTS
-# #    light.living_room:
-# #      expose: false
-# #      room: LIVING_ROOM
 
 homekit:
   auto_start: true

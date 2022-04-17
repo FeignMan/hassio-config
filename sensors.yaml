@@ -2,15 +2,6 @@
 #- platform: cert_expiry
 #  host: feignman-home.duckdns.org
 #  port: 8123
-- platform: deluge
-  host: 192.168.1.67
-  port: 58846
-  username: !secret deluge_user
-  password: !secret deluge_pwd
-  monitored_variables:
-    - 'current_status'
-    - 'download_speed'
-    - 'upload_speed'
 - platform: spotcast
 - platform: template
   sensors:
