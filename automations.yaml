@@ -1,5 +1,5 @@
 - id: '1616205706096'
-  alias: Button Livingroom Spotlight
+  alias: 'Button Livingroom '
   description: Zigbee button automation for controlling the living-room lights
   use_blueprint:
     path: sonoff_zigbee_button.yaml
@@ -23,8 +23,9 @@
       - service: scene.turn_on
         target:
           entity_id: scene.lights_off
+        data: {}
 - id: '1616275227538'
-  alias: Kitchen Light
+  alias: Motion Sensor Kitchen
   description: Motion-activated Kitchen Light
   use_blueprint:
     path: motion_activated_switch.yaml
@@ -45,7 +46,7 @@
       below_elevation: 7
       motion_entity: binary_sensor.motion_sensor_study_ias_zone
 - id: '1625700474272'
-  alias: Button Hallway Light
+  alias: 'Button Hallway '
   description: Sonoff Zigbee Button for Hallway Light
   use_blueprint:
     path: sonoff_zigbee_button.yaml
@@ -56,9 +57,19 @@
         target:
           device_id: f89e5f7d50af4e82e02adf723671248f
         data:
-          brightness_pct: 50
+          brightness_pct: 80
+      off_action:
+      - service: scene.turn_on
+        target:
+          entity_id: scene.lights_off
+        metadata: {}
+      on_action:
+      - service: scene.turn_on
+        target:
+          entity_id: scene.low_light_living_room
+        metadata: {}
 - id: '1648505989977'
-  alias: ' Study Motion Sensor'
+  alias: ' Motion Sensor Study'
   description: Automation to control the lights in Ishan's study
   use_blueprint:
     path: motion_activated_light_or_switch.yaml
@@ -81,4 +92,55 @@
   - service: wake_on_lan.send_magic_packet
     data:
       mac: B4:E6:2A:87:A8:52
+  mode: single
+- id: '1650329522998'
+  alias: Plex Lighting
+  description: ''
+  trigger:
+  - platform: device
+    device_id: 222ba24bbee291d31445d155f0644945
+    domain: media_player
+    entity_id: media_player.plex_aurelia_plex_for_lg_lg_oled55e7n_z
+    type: playing
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 5
+  condition:
+  - condition: or
+    conditions:
+    - condition: sun
+      before: sunrise
+    - condition: sun
+      after: sunset
+  action:
+  - service: scene.create
+    data:
+      scene_id: temp_plex_scene
+      snapshot_entities:
+      - light.livingroom_floorlamp
+      - light.livingroom_spotlight
+      - switch.hallway_shelf_light
+      - light.hallway_light
+  - service: scene.turn_on
+    target:
+      entity_id: scene.plex_movie_scene
+    data:
+      transition: 2.5
+  - wait_for_trigger:
+    - platform: device
+      type: changed_states
+      device_id: 222ba24bbee291d31445d155f0644945
+      entity_id: media_player.plex_aurelia_plex_for_lg_lg_oled55e7n_z
+      domain: media_player
+      for:
+        hours: 0
+        minutes: 0
+        seconds: 5
+    continue_on_timeout: false
+  - service: scene.turn_on
+    target:
+      entity_id: scene.temp_plex_scene
+    data:
+      transition: 2.5
   mode: single

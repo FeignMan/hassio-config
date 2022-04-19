@@ -62,3 +62,33 @@
       friendly_name: Livingroom Floorlamp
       supported_features: 32
       state: 'off'
+- id: '1650328067316'
+  name: Plex Movie Scene
+  entities:
+    light.livingroom_floorlamp:
+      supported_color_modes:
+      - brightness
+      friendly_name: Livingroom Floorlamp
+      supported_features: 32
+      color_mode: brightness
+      brightness: 76
+      state: 'on'
+    light.livingroom_spotlight:
+      supported_color_modes:
+      - brightness
+      friendly_name: Livingroom Spotlight
+      supported_features: 32
+      color_mode: brightness
+      brightness: 76
+      state: 'on'
+    switch.hallway_shelf_light:
+      friendly_name: Hallway Shelf Light
+      state: 'off'
+    light.hallway_light:
+      supported_color_modes:
+      - brightness
+      off_brightness:
+      friendly_name: Hallway Light
+      supported_features: 41
+      state: 'off'
+  icon: mdi:television-box
