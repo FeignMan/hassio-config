@@ -144,3 +144,21 @@
     data:
       transition: 2.5
   mode: single
+- id: '1650928264103'
+  alias: Plex Series Notification
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: sensor.plex_library_series
+  - platform: state
+    entity_id: sensor.plex_library_movies
+  condition: []
+  action:
+  - service: notify.tv
+    data_template:
+      message: 'Downloaded: {{ trigger.to_state.attributes.last_added_item }}'
+  - service: notify.mobile_app_iphone_13_mini
+    data_template:
+      message: '{{ trigger.to_state.attributes.last_added_item }}'
+      title: 'Plex: Series Downloaded!'
+  mode: single
