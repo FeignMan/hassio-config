@@ -11,7 +11,7 @@
           brightness_pct: 50
           transition: 3
         target:
-          device_id: 2d8b6c36efa8f2c0a8041ba80ea0248c
+          device_id: 1dd4cc1394caee32c5ccefeb7bcb41ba
       on_action:
       - service: light.toggle
         data:
@@ -161,4 +161,61 @@
     data_template:
       message: '{{ trigger.to_state.attributes.last_added_item }}'
       title: 'Plex: Series Downloaded!'
+  mode: single
+- id: '1665429843951'
+  alias: Hallway Motion Sensor
+  description: ''
+  use_blueprint:
+    path: motion_activated_light_or_switch.yaml
+    input:
+      motion_entity: binary_sensor.motion_sensor_hallway_iaszone
+      target_entity: light.hallway_light
+      no_motion_wait: 1
+- id: '1667079325658'
+  alias: 'CPU Temp Warning: 60C'
+  description: ''
+  trigger:
+  - platform: numeric_state
+    entity_id: sensor.system_temp
+    above: 60
+  condition: []
+  action:
+  - service: notify.alexa_media_echo_spot
+    data:
+      message: Home Assistant Warning! CPU Temperature has exceeded 60 degrees!
+      data:
+        type: tts
+  - wait_for_trigger:
+    - platform: numeric_state
+      entity_id: sensor.system_temp
+      below: 60
+  - service: notify.alexa_media_echo_spot
+    data:
+      message: Home Assistant CPU Temperature back to normal
+      data:
+        type: tts
+  mode: single
+- id: '1667082780494'
+  alias: 'CPU Temp Warning: 70C'
+  description: ''
+  trigger:
+  - platform: numeric_state
+    entity_id: sensor.system_temp
+    above: 70
+  condition: []
+  action:
+  - service: notify.alexa_media_echo_spot
+    data:
+      message: Home Assistant Warning! CPU Temperature has exceeded 70 degrees!
+      data:
+        type: tts
+  - wait_for_trigger:
+    - platform: numeric_state
+      entity_id: sensor.system_temp
+      below: 70
+  - service: notify.alexa_media_echo_spot
+    data:
+      message: Home Assistant CPU Temperature is below 70 degrees
+      data:
+        type: tts
   mode: single
