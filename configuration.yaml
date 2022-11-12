@@ -7,7 +7,7 @@ homeassistant:
   time_zone: Europe/Paris
   customize: !include customize.yaml
   allowlist_external_dirs:
-    - /config
+    - ./
 
 #logger:
 #  default: info
@@ -20,7 +20,7 @@ frontend:
 default_config:
 
 zha:
-  database_path: /config/zigbee.db
+  database_path: ./zigbee.db
 
 wake_on_lan:
 media_player: #!include media_players.yaml
