@@ -4,13 +4,13 @@ python:
 before_install:
 - mv travis-secrets.yaml secrets.yaml
 - mv travis-gcp_service_account.json gcp_service_account.json
-- sudo mkdir /config
+- sudo mkdir -p /config/custom_components
 - sudo apt-get install -y libudev-dev
 - pip install importlib-metadata==4.12
 - sudo apt install sqlite3
 install:
 - pip3 install homeassistant
 - git clone https://github.com/fondberg/spotcast.git
-- mkdir -p config/custom_components; mv spotcast/custom_components/spotcast config/custom_components/
+- mv spotcast/custom_components/spotcast /config/custom_components/
 script:
 - hass -c . --script check_config
