@@ -1,0 +1,34 @@
+switch:
+  - unique_id: "kitchen_light"
+    name: "Kitchen Light"
+    state_topic: "stat/sonoff/POWER"
+    command_topic: "cmnd/sonoff/POWER"
+    payload_on: "ON"
+    payload_off: "OFF"
+    state_on: "ON"
+    state_off: "OFF"
+    optimistic: false
+    qos: 1
+    retain: true
+  - unique_id: "ishan_s_desk_light"
+    name: "Ishan's Desk Light"
+    state_topic: "stat/guestroom-light-desk/POWER"
+    command_topic: "cmnd/guestroom-light-desk/POWER"
+    payload_on: "ON"
+    payload_off: "OFF"
+    state_on: "ON"
+    state_off: "OFF"
+    optimistic: false
+    qos: 1
+    retain: true
+  - unique_id: "hallway_shelf_light"
+    name: "Hallway Shelf Light"
+    state_topic: "stat/hallway-light-shelf/POWER"
+    command_topic: "cmnd/hallway-light-shelf/POWER"
+    payload_on: "ON"
+    payload_off: "OFF"
+    state_on: "ON"
+    state_off: "OFF"
+    optimistic: false
+    qos: 1
+    retain: true

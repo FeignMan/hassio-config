@@ -33,6 +33,8 @@ spotcast:
 switch: !include switches.yaml
 # https://www.home-assistant.io/integrations/template
 template: !include templates.yaml
+# https://www.home-assistant.io/integrations/switch.mqtt/#new_format
+mqtt: !include mqtt.yaml
 sensor: !include sensors.yaml
 
 http:
