@@ -6,6 +6,7 @@ before_install:
 - mv travis-gcp_service_account.json gcp_service_account.json
 - sudo mkdir /config
 - sudo apt-get install -y libudev-dev
+- pip install importlib-metadata==4.12
 install:
 - pip3 install homeassistant
 script:
