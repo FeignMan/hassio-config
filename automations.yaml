@@ -219,3 +219,57 @@
       data:
         type: tts
   mode: single
+- id: '1667962528248'
+  alias: Remote Control Study
+  description: ''
+  trigger:
+  - platform: event
+    event_type: zha_event
+    event_data:
+      device_id: 39c863e44fc4dd63c1b93f3a442e6cfa
+  condition: []
+  action:
+  - choose:
+    - conditions:
+      - condition: template
+        value_template: '{{ trigger.event.data.endpoint_id == 1 and trigger.event.data.command
+          == ''remote_button_short_press'' }}'
+      sequence:
+      - service: switch.toggle
+        data: {}
+        target:
+          entity_id: switch.ishan_s_desk_light
+    - conditions:
+      - condition: template
+        value_template: '{{ trigger.event.data.endpoint_id == 2 and trigger.event.data.command
+          == ''remote_button_short_press'' }}'
+      sequence:
+      - service: light.toggle
+        data: {}
+        target:
+          device_id: c96f64c92c075cef29f1f7da0113bcd3
+    - conditions:
+      - condition: template
+        value_template: '{{ trigger.event.data.endpoint_id == 2 and trigger.event.data.command
+          == ''remote_button_double_press'' }}'
+      sequence:
+      - service: automation.toggle
+        data: {}
+        target:
+          entity_id: automation.study_motion_sensor
+      - if:
+        - condition: state
+          entity_id: automation.study_motion_sensor
+          state: 'on'
+        then:
+        - service: light.turn_on
+          data:
+            flash: long
+          target:
+            device_id: c96f64c92c075cef29f1f7da0113bcd3
+        else:
+        - service: light.turn_off
+          data: {}
+          target:
+            device_id: c96f64c92c075cef29f1f7da0113bcd3
+  mode: single

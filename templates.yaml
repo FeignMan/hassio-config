@@ -1,0 +1,16 @@
+# https://www.home-assistant.io/integrations/template/#trigger-based-template-binary-sensors-buttons-numbers-selects-and-sensors
+- trigger:
+    - platform: event
+      event_type: zha_event
+      event_data:
+        device_id: 39c863e44fc4dd63c1b93f3a442e6cfa
+
+  sensor:
+    - name: Study Remote Control Sensor
+      # value_template: "{{ iff(trigger.event.data.command != 'press_type', (trigger.event.data.endpoint_id | string) + '_' + trigger.event.data.command), '-' }}"
+      state: >
+        {% if trigger.event.data.command != "press_type" %}
+          {{ trigger.event.data.endpoint_id ~ "_" ~ trigger.event.data.command }} 
+        {% else %}
+          {{ this.state }}
+        {% endif %}
