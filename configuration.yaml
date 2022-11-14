@@ -9,10 +9,11 @@ homeassistant:
   allowlist_external_dirs:
     - ./
 
-#logger:
-#  default: info
-#  logs:
-#    custom_components.myEnedis: debug
+# logger:
+#   default: warning
+#   logs:
+#     homeassistant.components.zha: info
+    # custom_components.myEnedis: debug
 
 # Configure a default setup of Home Assistant (frontend, api, etc)
 frontend:
@@ -21,6 +22,8 @@ default_config:
 
 zha:
   database_path: ./zigbee.db
+  enable_quirks: true
+  custom_quirks_path: ./zha_quirks
 
 wake_on_lan:
 media_player: #!include media_players.yaml
