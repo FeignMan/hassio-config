@@ -35,16 +35,6 @@
         entity_id: switch.kitchen_light
       below_elevation: 5
       no_motion_wait: 300
-- id: '1620860129873'
-  alias: Ishan's Desk Sensor
-  description: ''
-  use_blueprint:
-    path: motion_activated_switch.yaml
-    input:
-      switch_target:
-        entity_id: switch.ishan_s_desk_light
-      below_elevation: 7
-      motion_entity: binary_sensor.motion_sensor_study_ias_zone
 - id: '1625700474272'
   alias: 'Button Hallway '
   description: Sonoff Zigbee Button for Hallway Light
@@ -273,3 +263,40 @@
           target:
             device_id: c96f64c92c075cef29f1f7da0113bcd3
   mode: single
+- id: '1668461303942'
+  alias: Auto Heating
+  description: ''
+  trigger:
+  - platform: template
+    value_template: "{% if states('sensor.living_room_sensor_temperature') | float(0)
+      < 19.7 %}\n  true\n{% else %}\n  false\n{% endif %}\n"
+    for:
+      hours: 0
+      minutes: 2
+  condition:
+  - condition: or
+    conditions:
+    - condition: zone
+      entity_id: person.aurelia
+      zone: zone.home
+    - condition: zone
+      entity_id: person.ishan
+      zone: zone.home
+  action:
+  - service: switch.turn_on
+    data: {}
+    target:
+      device_id: 9ea5fe09381290a36747ed5dc5a4d96d
+  - wait_for_trigger:
+    - platform: template
+      value_template: "{% if states('sensor.living_room_sensor_temperature') | float(0)
+        > 19.8 %}\n  true\n{% else %}\n  false\n{% endif %}\n"
+      for:
+        hours: 0
+        minutes: 2
+    continue_on_timeout: true
+  - service: switch.turn_off
+    data: {}
+    target:
+      device_id: 9ea5fe09381290a36747ed5dc5a4d96d
+  mode: restart
