@@ -269,7 +269,7 @@
   trigger:
   - platform: template
     value_template: "{% if states('sensor.living_room_sensor_temperature') | float(0)
-      < 19.7 %}\n  true\n{% else %}\n  false\n{% endif %}\n"
+      < 18.5 %}\n  true\n{% else %}\n  false\n{% endif %}\n"
     for:
       hours: 0
       minutes: 2
@@ -290,7 +290,7 @@
   - wait_for_trigger:
     - platform: template
       value_template: "{% if states('sensor.living_room_sensor_temperature') | float(0)
-        > 19.8 %}\n  true\n{% else %}\n  false\n{% endif %}\n"
+        > 18.5 %}\n  true\n{% else %}\n  false\n{% endif %}\n"
       for:
         hours: 0
         minutes: 2

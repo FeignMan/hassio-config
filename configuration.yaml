@@ -4,7 +4,11 @@ homeassistant:
   longitude: 2.416406
   elevation: 80
   unit_system: metric
+  currency: EUR
+  country: FR
   time_zone: Europe/Paris
+  external_url: "https://hassio.feignman.duckdns.org"
+  internal_url: "http://192.168.1.66:8123"
   customize: !include customize.yaml
   allowlist_external_dirs:
     - ./
