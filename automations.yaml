@@ -262,6 +262,15 @@
           data: {}
           target:
             device_id: c96f64c92c075cef29f1f7da0113bcd3
+    - conditions:
+      - condition: template
+        value_template: '{{ trigger.event.data.endpoint_id == 1 and trigger.event.data.command
+          == ''remote_button_double_press'' }}'
+      sequence:
+      - type: toggle
+        device_id: 861fcc049d6b0b2e3ea81c3962be37cf
+        entity_id: switch.heating_study
+        domain: switch
   mode: single
 - id: '1668461303942'
   alias: Auto Heating
